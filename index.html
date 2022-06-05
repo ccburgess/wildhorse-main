@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weave</title>
+<link rel="stylesheet" href="./css/index.css">
+<link rel="icon" type="image/x-icon" href="/svg/favicon.png">
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="container">
+<div class="main">
+<div class="main__logo" id="logo">
+<img src="./svg/logo.svg" width="128px" height="58px">
+<p>WEAVE.SU</p>
+</div>
+<div class="main__info">
+<div class="main__info__status">
+<p><span id="current__status">Current status: </span><span class="span__orange" id="current__status__status">On recode</span></p>
+</div>
+<div class="main__info__language">
+<p><span id="text__button__ru" class="span__orange">RU</span> / <span id="text__button__en">EN</span></p>
+</div>
+</div>
+<div class="main__socials">
+<ul>
+<li><a href="https://vk.com/weave_csgo">VK GROUP</a></li>
+<span class="span__orange">•</span>
+<li><a href="https://discord.gg/dEKp7vqQeu">DISCORD</a></li>
+<span class="span__orange">•</span>
+<li><a href="https://t.me/weave_csgo">TELEGRAM</a></li>
+
+
+</ul>
+</div>
+<div class="main__download">
+<p><a id="download__button"></a></p>
+</div>
+<footer>
+<div class="main__footer">
+<p><span class="span__orange">WEAVE.SU</span> © 2017-2022</p>
+<p>Powered by <a href="https://ev0lve.xyz/"><span class="span__blue">ev0lve</span>.xyz</a></p>
+</div>
+</footer>
+</div>
+</div>
+<script src="./js/particles.js"></script>
+<script src="./js/cookie.js"></script>
+<script>
+            if (getCookie("cookies") === 'false')
+                window.location.replace("cookie.html")
+
+            var p_ru = document.getElementById("text__button__ru")
+            var p_en = document.getElementById("text__button__en")
+
+            var download_button = document.getElementById("download__button")
+            var current_status = document.getElementById("current__status")
+            var current_status_status = document.getElementById("current__status__status")
+
+            function set_english() {
+                p_en.classList.add("span__orange")
+                p_ru.classList.remove("span__orange")
+                document.cookie = "language=en"
+                download_button.innerText = "DOWNLOAD FREE VERSION"
+                current_status.innerText = "Current status: "
+                current_status_status.innerText = "On recode"
+            }
+
+            function set_russian() {
+                p_ru.classList.add("span__orange")
+                p_en.classList.remove("span__orange")
+                document.cookie = "language=ru"
+                download_button.innerText = "СКАЧАТЬ ЧИТ"
+                current_status.innerText = "Текущий статус: "
+                current_status_status.innerText = "Разрабатывается"
+            }
+
+            p_ru.onclick = (e) => set_russian()
+            p_en.onclick = (e) => set_english()
+
+            switch (getCookie("language")) {
+                case "ru":
+                    set_russian()
+                    break
+                case "en":
+                    set_english()
+            }
+
+            var index = 0
+
+            setInterval(() => {
+                var language = getCookie("language")
+
+                if (language == "ru") {
+                    if (index != 3) {
+                        current_status_status.innerText += "."
+                        ++index
+                    } else {
+                        index = 0
+                        current_status_status.innerText = "Разрабатывается"
+                    }
+                } else if (language == "en") {
+                    if (index != 3) {
+                        current_status_status.innerText += "."
+                        ++index
+                    } else {
+                        index = 0
+                        current_status_status.innerText = "On recode"
+                    }
+                }
+            }, 1000)
+
+            download_button.onclick = (e) => {
+                window.location.replace("download.html")
+            }
+
+            var logo = document.getElementById("logo")
+            logo.onclick = (e) => window.location.replace("index.html")
+        </script>
+</body>
+</html>
